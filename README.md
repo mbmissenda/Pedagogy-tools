@@ -2,7 +2,7 @@
 Two Ways to Change a System
 A dual-lens metacognitive scaffold for graduate students designing evidence-informed integrative-health projects inside institutions that weren't built for them. Students hold their project up to two contrasting frameworks — Intervention Mapping and institutional intrapreneurship — and answer the questions each one would ask. A companion diagnostic invites them to learn from a project (theirs or someone else's) that ran out of fuel.
 
-Live tool: [add your GitHub Pages URL here] Source file: two-ways-to-change-a-system.html
+Live tool: https://mbmissenda.github.io/Pedagogy-tools/ Source file:https://mbmissenda.github.io/Pedagogy-tools/)
 
 ________________________________________
 What it is
