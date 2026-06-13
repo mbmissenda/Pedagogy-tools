@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Ways to Change a System — A dual-lens scaffold for integrative-health intrapreneurs</title>
+<meta name="description" content="A metacognitive scaffold for graduate students designing evidence-informed integrative-health projects. Toggle between Intervention Mapping (Blueprint) and institutional intrapreneurship (Build).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1d24;
+    --ink-soft: #3a3f4a;
+    --ink-mute: #6a7280;
+    --paper: #fbf9f4;
+    --paper-deep: #f3efe6;
+    --rule: #d8d2c4;
+    --rule-soft: #e8e3d5;
+
+    --blueprint: #1f4e79;
+    --blueprint-soft: #e6eef6;
+    --blueprint-deep: #143659;
+    --blueprint-tint: #f3f7fc;
+
+    --build: #a8430a;
+    --build-soft: #f6e6d8;
+    --build-deep: #7a2f04;
+    --build-tint: #fbf2e8;
+
+    --stall: #5a3a6b;
+    --stall-soft: #ece2f0;
+    --stall-tint: #f7f1fa;
+
+    --focus: #ffb000;
+    --shadow: 0 1px 2px rgba(20,20,30,.04), 0 4px 14px rgba(20,20,30,.06);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px 14px;
+    text-decoration: none;
+    z-index: 100;
+  }
+  .skip-link:focus { top: 0; }
+
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 28px 96px;
+  }
+
+  header.intro {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 36px;
+    margin-bottom: 36px;
+  }
+
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 16px;
+  }
+
+  h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(34px, 5vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -.015em;
+    margin: 0 0 18px;
+    color: var(--ink);
+  }
+  h1 .or {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-mute);
+  }
+
+  .lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 64ch;
+    margin: 0 0 8px;
+  }
+
+  .pedagogy-note {
+    margin-top: 24px;
+    padding: 14px 18px;
+    background: var(--paper-deep);
+    border-left: 3px solid var(--ink-mute);
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .pedagogy-note strong { color: var(--ink); }
+
+  /* Project input */
+  section.project {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 24px 26px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+  }
+  section.project h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    letter-spacing: -.01em;
+  }
+  section.project p.sub {
+    margin: 0 0 14px;
+    color: var(--ink-mute);
+    font-size: 15px;
+  }
+
+  textarea, input[type="text"] {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 12px 14px;
+    resize: vertical;
+  }
+  textarea:focus, input[type="text"]:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 1px;
+    border-color: var(--ink);
+  }
+  textarea { min-height: 84px; }
+  textarea.tall { min-height: 120px; }
+
+  /* Tabs */
+  .lens-toggle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-bottom: 2px solid var(--rule);
+    margin-bottom: 28px;
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 10;
+    padding-top: 8px;
+  }
+  .lens-btn {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 16px 14px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink-mute);
+    cursor: pointer;
+    letter-spacing: .02em;
+    text-align: center;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .lens-btn .label {
+    display: block;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: -.01em;
+    margin-bottom: 2px;
+  }
+  .lens-btn .tag {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .8;
+  }
+  .lens-btn:hover { color: var(--ink); background: var(--paper-deep); }
+  .lens-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
+
+  .lens-btn[data-lens="blueprint"][aria-selected="true"] {
+    color: var(--blueprint);
+    border-bottom-color: var(--blueprint);
+    background: var(--blueprint-tint);
+  }
+  .lens-btn[data-lens="build"][aria-selected="true"] {
+    color: var(--build);
+    border-bottom-color: var(--build);
+    background: var(--build-tint);
+  }
+  .lens-btn[data-lens="diagnose"][aria-selected="true"] {
+    color: var(--stall);
+    border-bottom-color: var(--stall);
+    background: var(--stall-tint);
+  }
+
+  /* Panels */
+  .panel { display: none; }
+  .panel[aria-hidden="false"] { display: block; }
+
+  .panel-intro {
+    margin-bottom: 28px;
+    padding: 22px 24px;
+    border-radius: 10px;
+  }
+  .panel-intro h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    margin: 0 0 6px;
+  }
+  .panel-intro .citation {
+    font-size: 13px;
+    color: var(--ink-mute);
+    margin: 0 0 12px;
+    font-style: italic;
+  }
+  .panel-intro p {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  #panel-blueprint .panel-intro { background: var(--blueprint-soft); border-left: 4px solid var(--blueprint); }
+  #panel-blueprint .panel-intro h2 { color: var(--blueprint-deep); }
+
+  #panel-build .panel-intro { background: var(--build-soft); border-left: 4px solid var(--build); }
+  #panel-build .panel-intro h2 { color: var(--build-deep); }
+
+  #panel-diagnose .panel-intro { background: var(--stall-soft); border-left: 4px solid var(--stall); }
+  #panel-diagnose .panel-intro h2 { color: var(--stall); }
+
+  /* Prompt cards */
+  .prompt {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  .prompt-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+  .prompt-num {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--ink-mute);
+    min-width: 38px;
+  }
+  #panel-blueprint .prompt-num { color: var(--blueprint); }
+  #panel-build .prompt-num { color: var(--build); }
+  #panel-diagnose .prompt-num { color: var(--stall); }
+
+  .prompt h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .construct {
+    font-size: 14px;
+    color: var(--ink-mute);
+    margin: 0 0 14px 52px;
+    font-style: italic;
+  }
+
+  .questions {
+    margin: 0 0 14px 52px;
+    padding: 0;
+    list-style: none;
+  }
+  .questions li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 8px;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .questions li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--ink-mute);
+    font-weight: 500;
+  }
+  #panel-blueprint .questions li::before { color: var(--blueprint); }
+  #panel-build .questions li::before { color: var(--build); }
+  #panel-diagnose .questions li::before { color: var(--stall); }
+
+  .response {
+    margin-left: 52px;
+  }
+  .response label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 6px;
+  }
+
+  /* Optional reframing block */
+  details.optional {
+    margin: 8px 0 18px 52px;
+    border: 1px dashed var(--rule);
+    border-radius: 8px;
+    padding: 0;
+    background: var(--paper-deep);
+  }
+  details.optional summary {
+    cursor: pointer;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    font-size: 14px;
+    letter-spacing: .02em;
+    list-style: none;
+  }
+  details.optional summary::-webkit-details-marker { display: none; }
+  details.optional summary::before {
+    content: "+ ";
+    color: var(--build);
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  details.optional[open] summary::before { content: "− "; }
+  details.optional[open] { padding-bottom: 16px; }
+  details.optional .inner { padding: 0 16px; }
+
+  /* "When to use each lens" card */
+  .when-card {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+  .when-card h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    margin: 0 0 4px;
+  }
+  .when-card .sub {
+    margin: 0 0 18px;
+    color: var(--ink-mute);
+    font-size: 14.5px;
+  }
+  .when-group-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 10px;
+  }
+  .when-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .when-companion {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--rule);
+  }
+  .when-companion .when-grid {
+    grid-template-columns: 1fr;
+  }
+  .when-cell {
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: var(--paper-deep);
+    border-left: 3px solid var(--ink-mute);
+  }
+  .when-cell.bp { border-left-color: var(--blueprint); background: var(--blueprint-tint); }
+  .when-cell.bd { border-left-color: var(--build); background: var(--build-tint); }
+  .when-cell.dx { border-left-color: var(--stall); background: var(--stall-tint); }
+  .when-cell h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    letter-spacing: -.005em;
+  }
+  .when-cell.bp h3 { color: var(--blueprint-deep); }
+  .when-cell.bd h3 { color: var(--build-deep); }
+  .when-cell.dx h3 { color: var(--stall); }
+  .when-cell p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 700px) {
+    .when-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Evidence base section */
+  section.evidence {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+  section.evidence h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    margin: 0 0 4px;
+  }
+  section.evidence .sub {
+    margin: 0 0 16px;
+    color: var(--ink-mute);
+    font-size: 14.5px;
+  }
+  .ev-stage-group {
+    margin-bottom: 16px;
+  }
+  .ev-stage-legend {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .ev-stage-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .ev-stage-option {
+    position: relative;
+    border: 1.5px solid var(--rule);
+    border-radius: 8px;
+    background: var(--paper);
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+  }
+  .ev-stage-option:hover { border-color: var(--ink-mute); background: var(--paper-deep); }
+  .ev-stage-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ev-stage-option:has(input:checked) {
+    border-color: var(--ink);
+    background: #fff;
+    box-shadow: 0 0 0 2px var(--ink);
+  }
+  .ev-stage-option:focus-within {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .ev-stage-option .ev-stage-title {
+    display: block;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    letter-spacing: -.005em;
+  }
+  .ev-stage-option .ev-stage-desc {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  @media (max-width: 700px) {
+    .ev-stage-options { grid-template-columns: 1fr; }
+  }
+  .evidence-echo-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 600px) {
+    .evidence-echo-row { grid-template-columns: 1fr; }
+  }
+  .evidence-echo-row .project-echo,
+  .evidence-echo-row .evidence-echo {
+    margin-bottom: 0;
+  }
+  .evidence-echo {
+    background: var(--paper-deep);
+    border-left: 3px solid var(--ink-mute);
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .evidence-echo strong {
+    display: block;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .evidence-echo .empty { font-style: italic; color: var(--ink-mute); }
+  .evidence-echo .stage-pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    margin-right: 6px;
+    margin-bottom: 4px;
+  }
+
+  /* "About you" section */
+  section.about-you {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+  section.about-you h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    margin: 0 0 4px;
+  }
+  section.about-you .sub {
+    margin: 0 0 16px;
+    color: var(--ink-mute);
+    font-size: 14.5px;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .about-grid .full { grid-column: 1 / -1; }
+  .about-grid label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .about-grid input[type="text"], .about-grid textarea {
+    font-size: 15px;
+  }
+  .about-grid textarea { min-height: 60px; }
+  @media (max-width: 600px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Progress and time meta */
+  .panel-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: var(--paper-deep);
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .panel-meta .time {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-meta .time::before {
+    content: "◷";
+    font-size: 16px;
+    color: var(--ink-mute);
+  }
+  .progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .progress-dots {
+    display: inline-flex;
+    gap: 4px;
+  }
+  .progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--rule);
+    transition: background .2s;
+  }
+  #panel-blueprint .progress-dot.filled { background: var(--blueprint); }
+  #panel-build .progress-dot.filled { background: var(--build); }
+  #panel-diagnose .progress-dot.filled { background: var(--stall); }
+  .progress-count { font-weight: 600; color: var(--ink); }
+
+  /* Sentence stems */
+  .stems {
+    margin: 10px 0 0 52px;
+  }
+  .stems-toggle {
+    background: transparent;
+    border: 1px dashed var(--rule);
+    color: var(--ink-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 16px;
+    cursor: pointer;
+  }
+  .stems-toggle:hover { background: var(--paper-deep); border-color: var(--ink-mute); }
+  .stems-toggle:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+  .stems-list {
+    margin-top: 10px;
+    padding: 12px 14px;
+    background: var(--paper-deep);
+    border-radius: 8px;
+    border: 1px solid var(--rule-soft);
+    display: none;
+  }
+  .stems-list.open { display: block; }
+  .stems-list p {
+    margin: 0 0 6px;
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+  .stems-list button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .stems-list button:hover { background: var(--paper); border-color: var(--ink-mute); color: var(--ink); }
+  .stems-list button:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+  @media (max-width: 600px) {
+    .stems { margin-left: 0; }
+  }
+
+  /* Self-check rubric */
+  .self-check {
+    margin: 14px 0 0 52px;
+    border-top: 1px dashed var(--rule);
+    padding-top: 14px;
+  }
+  .self-check-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 10px;
+  }
+  .self-check-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .self-check-items li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    line-height: 1.5;
+    padding: 4px 6px;
+    border-radius: 4px;
+  }
+  .self-check-items li:hover { background: var(--paper-deep); }
+  .self-check-items input[type="checkbox"] {
+    margin: 3px 0 0;
+    accent-color: var(--ink-soft);
+    flex-shrink: 0;
+  }
+  #panel-blueprint .self-check-items input[type="checkbox"] { accent-color: var(--blueprint); }
+  #panel-build .self-check-items input[type="checkbox"] { accent-color: var(--build); }
+  #panel-diagnose .self-check-items input[type="checkbox"] { accent-color: var(--stall); }
+  .self-check-items input[type="checkbox"]:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .self-check-items li.checked { color: var(--ink); }
+  .self-check-note {
+    margin: 10px 0 0;
+    font-size: 12.5px;
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+  @media (max-width: 600px) {
+    .self-check { margin-left: 0; }
+  }
+
+  /* Save status with portable export hint */
+  .save-band {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .save-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #5fa663;
+  }
+
+  /* Framework primer (collapsible "How this framework works") */
+  .primer {
+    margin-bottom: 24px;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: var(--shadow);
+  }
+  .primer > summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .primer > summary::-webkit-details-marker { display: none; }
+  .primer > summary .primer-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .primer > summary .primer-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: var(--ink);
+  }
+  .primer > summary .primer-titlewrap { display: flex; flex-direction: column; gap: 2px; }
+  .primer > summary::after {
+    content: "▸";
+    margin-left: auto;
+    font-size: 14px;
+    color: var(--ink-mute);
+    transition: transform .15s;
+  }
+  .primer[open] > summary::after { transform: rotate(90deg); }
+  .primer > summary:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: -3px;
+    border-radius: 10px;
+  }
+  .primer .primer-body {
+    padding: 4px 22px 22px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .primer .primer-body p {
+    margin: 14px 0 12px;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.6;
+    max-width: 64ch;
+  }
+  .primer .primer-body dl { margin: 8px 0 0; }
+  .primer .primer-body dt {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 16px;
+    margin-bottom: 4px;
+    letter-spacing: -.005em;
+  }
+  .primer .primer-body dd {
+    margin: 0 0 4px;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 64ch;
+  }
+  .primer .primer-body .ref-note {
+    margin-top: 18px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--rule);
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+  #panel-blueprint .primer .primer-title { color: var(--blueprint-deep); }
+  #panel-blueprint .primer > summary::after { color: var(--blueprint); }
+  #panel-build .primer .primer-title { color: var(--build-deep); }
+  #panel-build .primer > summary::after { color: var(--build); }
+  #panel-diagnose .primer .primer-title { color: var(--stall); }
+  #panel-diagnose .primer > summary::after { color: var(--stall); }
+
+  /* Project echo (shows the student's idea on every lens panel) */
+  .project-echo {
+    background: var(--paper-deep);
+    border-left: 3px solid var(--ink-mute);
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    border-radius: 0 6px 6px 0;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+  .project-echo strong {
+    display: block;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .project-echo .empty { font-style: italic; color: var(--ink-mute); }
+
+  /* Toolbar */
+  .toolbar {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .toolbar .left, .toolbar .right { display: flex; gap: 10px; flex-wrap: wrap; }
+  button.tool {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 9px 16px;
+    cursor: pointer;
+  }
+  button.tool:hover { background: var(--paper-deep); }
+  button.tool:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+  button.tool.warn { color: var(--build-deep); border-color: var(--build-soft); }
+  button.tool.warn:hover { background: var(--build-soft); }
+
+  .save-status {
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+
+  /* Footer */
+  footer.refs {
+    margin-top: 64px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    font-size: 13.5px;
+    color: var(--ink-mute);
+  }
+  footer.refs h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+  footer.refs p {
+    margin: 0 0 8px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 600px) {
+    .wrap { padding: 28px 18px 80px; }
+    .prompt { padding: 18px 18px; }
+    .prompt-head { flex-direction: column; gap: 4px; }
+    .prompt-num { font-size: 22px; min-width: auto; }
+    .construct, .questions, .response, details.optional { margin-left: 0; }
+    .lens-btn .label { font-size: 17px; }
+    .lens-btn { padding: 12px 6px 10px; }
+  }
+
+  @media print {
+    .lens-toggle, .toolbar, .skip-link { display: none !important; }
+    .panel { display: block !important; page-break-before: always; }
+    .panel:first-of-type { page-break-before: auto; }
+    body { background: #fff; font-size: 12pt; }
+    .prompt, section.project { box-shadow: none; border: 1px solid #999; break-inside: avoid; }
+    textarea { border: none; padding: 0; background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to scaffold</a>
+
+<div class="wrap">
+
+<header class="intro">
+  <p class="eyebrow">A dual-lens metacognitive scaffold</p>
+  <h1>Two Ways to Change a System</h1>
+  <p class="lede">
+    You have an evidence-informed integrative-health project you want to move forward inside an institution that wasn't built for it. There are two very different ways to think about the work ahead — one <em>engineered</em>, one <em>brokered</em>. Both are useful, in different moments, and both are stronger when anchored in the evidence you've appraised — or the evidence you're still chasing. This tool helps you hold your project up to each way of thinking and hear where your reasoning is strong or thin.
+  </p>
+  <p class="lede" style="margin-top:14px;">
+    A separate diagnostic — <em>Why it Stalled</em> — is offered alongside the two ways as a companion. It's a way to learn from a project (yours, a colleague's, or a case from the literature) that ran out of fuel, useful as a check on your current effort before it does the same.
+  </p>
+  <div class="pedagogy-note">
+    <strong>How to use this:</strong> Tell us a little about you, your project, and where you are with the evidence. Then work through whichever way of thinking fits your moment — and visit the diagnostic when you want to pressure-test what you've built. Each panel opens with a short reference you can keep open while you think. After each prompt there's a quick check-in — not a grade, a mirror. Your work saves automatically, and you can carry it with you using the buttons at the bottom.
+  </div>
+</header>
+
+<main id="main">
+
+<section class="when-card" aria-labelledby="when-label">
+  <h2 id="when-label">When to reach for each one</h2>
+  <p class="sub">No single right starting place. Pick the one that fits where you are right now — you can come back for the others.</p>
+
+  <p class="when-group-label">The two ways to change a system</p>
+  <div class="when-grid">
+    <div class="when-cell bp">
+      <h3>The Blueprint</h3>
+      <p>Reach for this when you're early in your project and need to build rigor you can defend later. Strongest when you have evidence in hand (or a research question you're chasing), clear outcomes in mind, and an audience that expects a theory of change.</p>
+    </div>
+    <div class="when-cell bd">
+      <h3>The Build</h3>
+      <p>Reach for this when the formal channels won't open and you have to maneuver from where you stand. Strongest when the project is real but the institution is uneven — some doors closed, some quietly ajar.</p>
+    </div>
+  </div>
+
+  <div class="when-companion">
+    <p class="when-group-label">A diagnostic companion</p>
+    <div class="when-grid">
+      <div class="when-cell dx">
+        <h3>Why it Stalled</h3>
+        <p>Not a third way to change a system — a way to <em>learn</em> from one. Reach for this when you have a project (yours from a past role, a colleague's, or a case from the literature) that ran out of fuel. Use it as a pressure-test on your current project before it does the same.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="evidence" aria-labelledby="evidence-label">
+  <h2 id="evidence-label">Your evidence base</h2>
+  <p class="sub">This is a planning scaffold — not a substitute for the evidence behind your project. Name where you are with the literature so your answers below stay anchored.</p>
+
+  <fieldset class="ev-stage-group">
+    <legend class="ev-stage-legend">Where are you with the evidence?</legend>
+    <div class="ev-stage-options" role="radiogroup" aria-label="Evidence stage">
+      <label class="ev-stage-option">
+        <input type="radio" name="ev-stage" value="seeking" data-radio-group="ev-stage">
+        <span class="ev-stage-title">Still seeking</span>
+        <span class="ev-stage-desc">I'm refining the research question and need to find, summarize, and synthesize evidence to support this project.</span>
+      </label>
+      <label class="ev-stage-option">
+        <input type="radio" name="ev-stage" value="appraised" data-radio-group="ev-stage">
+        <span class="ev-stage-title">Appraisal in hand</span>
+        <span class="ev-stage-desc">I've completed an evidence appraisal and am building the project from what I've reviewed.</span>
+      </label>
+      <label class="ev-stage-option">
+        <input type="radio" name="ev-stage" value="both" data-radio-group="ev-stage">
+        <span class="ev-stage-title">Some of both</span>
+        <span class="ev-stage-desc">Some evidence in hand; more questions I still need to chase down.</span>
+      </label>
+    </div>
+  </fieldset>
+
+  <label for="ev-notes" style="display:block;font-size:13px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;">What evidence are you already building on, and what questions still need answers?</label>
+  <textarea id="ev-notes" data-key="ev-notes" aria-label="Evidence notes" placeholder="A few lines. List the studies, reviews, or appraisals you're drawing on — and the questions you haven't yet answered. This stays anchored to your work in every lens below."></textarea>
+</section>
+
+<section class="about-you" aria-labelledby="about-label">
+  <h2 id="about-label">A little about you</h2>
+  <p class="sub">Adult learners bring real experience. The prompts ahead will work better if you've named what you already carry. None of this is required, and none of it is shared.</p>
+  <div class="about-grid">
+    <div>
+      <label for="ay-years">Years in your field</label>
+      <input type="text" id="ay-years" data-key="ay-years" aria-label="Years in your field" placeholder="e.g., 9 years in nursing">
+    </div>
+    <div>
+      <label for="ay-setting">Where you work or train</label>
+      <input type="text" id="ay-setting" data-key="ay-setting" aria-label="Where you work or train" placeholder="e.g., FQHC primary care, urban">
+    </div>
+    <div class="full">
+      <label for="ay-why">What drew you to integrative health — and what have you already tried?</label>
+      <textarea id="ay-why" data-key="ay-why" aria-label="What drew you to integrative health" placeholder="A sentence or two. The experiences and attempts behind your project are part of the material."></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="project" aria-labelledby="project-label">
+  <h2 id="project-label">Your project</h2>
+  <p class="sub">In a sentence or two — what are you trying to do, and where?</p>
+  <textarea id="project-idea" data-key="project-idea" aria-label="Your project idea" placeholder="e.g., I want to integrate group medical visits using nutrition and mindfulness into the diabetes management pathway at the FQHC where I precept."></textarea>
+</section>
+
+<div class="lens-toggle" role="tablist" aria-label="Lens">
+  <button role="tab" class="lens-btn" data-lens="blueprint" id="tab-blueprint" aria-selected="true" aria-controls="panel-blueprint">
+    <span class="label">The Blueprint</span>
+    <span class="tag">Intervention Mapping</span>
+  </button>
+  <button role="tab" class="lens-btn" data-lens="build" id="tab-build" aria-selected="false" aria-controls="panel-build" tabindex="-1">
+    <span class="label">The Build</span>
+    <span class="tag">Institutional Intrapreneurship</span>
+  </button>
+  <button role="tab" class="lens-btn" data-lens="diagnose" id="tab-diagnose" aria-selected="false" aria-controls="panel-diagnose" tabindex="-1">
+    <span class="label">Why it Stalled</span>
+    <span class="tag">Diagnostic (Optional)</span>
+  </button>
+</div>
+
+<!-- ============== BLUEPRINT PANEL ============== -->
+<section class="panel" id="panel-blueprint" role="tabpanel" aria-labelledby="tab-blueprint" aria-hidden="false" data-lens-key="blueprint" data-prompt-count="7">
+
+  <div class="panel-intro">
+    <h2>The Blueprint</h2>
+    <p class="citation">Lens: Intervention Mapping (Fernandez et al., 2019)</p>
+    <p>This lens assumes that change is engineered. Before you act, you specify the problem, the people, the determinants, the theory-based methods, and the evaluation. The work upfront is heavy on purpose: a well-mapped intervention is harder to derail and easier to defend. Hold your project up to this lens and answer in your own words.</p>
+  </div>
+
+  <div class="panel-meta">
+    <span class="time">Plan ≈ 25–40 minutes. Come back anytime — your work saves as you go.</span>
+    <span class="progress">
+      <span class="progress-count"><span class="filled-count">0</span> / 7</span>
+      <span class="progress-dots" aria-hidden="true"></span>
+    </span>
+  </div>
+
+  <div class="evidence-echo-row">
+    <div class="project-echo" aria-live="polite">
+      <strong>You're working on</strong>
+      <span class="echo-text"><span class="empty">— enter your project above to see it here —</span></span>
+    </div>
+    <div class="evidence-echo" aria-live="polite">
+      <strong>Your evidence base</strong>
+      <span class="evidence-echo-text"><span class="empty">— name your evidence stage above to see it here —</span></span>
+    </div>
+  </div>
+
+  <details class="primer">
+    <summary>
+      <span class="primer-titlewrap">
+        <span class="primer-eyebrow">Reference</span>
+        <span class="primer-title">How this framework works</span>
+      </span>
+    </summary>
+    <div class="primer-body">
+      <p>Intervention Mapping builds an intervention backward from the problem. Before you decide what to do, you specify what has to change, in whom, and why — and on what theoretical basis. The prompts below ask for each of those layers in turn. Use this reference if a term feels unfamiliar.</p>
+
+      <dl>
+        <dt>Logic model of the problem</dt>
+        <dd>A left-to-right map. On the right: the quality of life affected. To its left: the health problem. To its left: the behaviors and environmental conditions that sustain the problem. Furthest left: the personal and environmental <em>determinants</em> that cause those behaviors and conditions.</dd>
+
+        <dt>Determinants</dt>
+        <dd>The modifiable factors behind a behavior or condition. <em>Personal</em> determinants live in the person — knowledge, attitudes, beliefs, skills, self-efficacy, outcome expectations. <em>Environmental</em> determinants live at four nested levels: interpersonal, organizational, community, and societal/policy.</dd>
+
+        <dt>Change objectives</dt>
+        <dd>A change objective pairs a determinant with what a specific actor must do, learn, or believe differently for that determinant to shift. Written by actor — "patients will…", "clinic schedulers will…", "department chairs will…" — and specific enough that you could tell whether it happened.</dd>
+
+        <dt>Theory-based methods and practical applications</dt>
+        <dd>A <em>method</em> is the theoretical mechanism of change drawn from behavioral and social science (modeling, persuasion, environmental restructuring, and others). A <em>practical application</em> is the concrete activity participants encounter that delivers the method — a workshop, a coaching call, a redesigned form. Each method has <em>parameters of effectiveness</em>: the conditions under which it actually works. Honoring those parameters is what makes a method translate.</dd>
+
+        <dt>Adoption and implementation</dt>
+        <dd>A useful intervention that isn't taken up isn't a change. <em>Adoption</em> is who chooses the intervention; <em>implementation</em> is who runs it day to day. Both have their own determinants and may require their own change objectives.</dd>
+
+        <dt>Evaluation</dt>
+        <dd>Four layers, each measuring something different. <em>Process</em>: did the intervention happen as planned? <em>Effect</em>: did the targeted determinants shift? <em>Behavioral</em>: did the behaviors change? <em>Health</em>: did the problem move?</dd>
+      </dl>
+
+      <p class="ref-note">For depth: Fernandez, M. E., et al. (2019). Implementation Mapping: Using Intervention Mapping to develop implementation strategies. <em>Frontiers in Public Health</em>, 7, 209.</p>
+    </div>
+  </details>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">1</span><h3>The problem and its logic</h3></div>
+    <p class="construct">Sketch the chain from determinants → behaviors and environmental conditions → health problem → quality of life.</p>
+    <ul class="questions">
+      <li>What is the health problem at the center of your project, in concrete terms? Whose problem is it?</li>
+      <li>What behaviors and environmental conditions sustain that problem? Which of those will your project actually try to change?</li>
+      <li>If you drew a logic model on a napkin right now, what would be on the left and what would be on the right?</li>
+    </ul>
+    <div class="response">
+      <label for="bp1">Your working logic model</label>
+      <textarea id="bp1" class="tall" data-key="bp1" aria-label="Working logic model"></textarea>
+    </div>
+    <div class="stems">
+      <button type="button" class="stems-toggle" data-stems="bp1" aria-expanded="false">Show sentence stems (optional)</button>
+      <div class="stems-list" id="stems-bp1">
+        <p>Tap any starter to add it to your answer. Edit freely.</p>
+        <button type="button" data-stem-target="bp1">The health problem at the center of my project is…</button>
+        <button type="button" data-stem-target="bp1">The people who experience this problem are…</button>
+        <button type="button" data-stem-target="bp1">The behaviors and environmental conditions sustaining it include…</button>
+        <button type="button" data-stem-target="bp1">If this project worked, life for these people would look different in these ways…</button>
+      </div>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bp1-1" data-check="bp1-1"><label for="chk-bp1-1">I named the health problem in concrete terms, not abstractly.</label></li>
+        <li><input type="checkbox" id="chk-bp1-2" data-check="bp1-2"><label for="chk-bp1-2">I distinguished the behaviors and conditions that sustain the problem from the problem itself.</label></li>
+        <li><input type="checkbox" id="chk-bp1-3" data-check="bp1-3"><label for="chk-bp1-3">I named at least one specific group whose problem this is.</label></li>
+      </ul>
+      <p class="self-check-note">These are mirrors, not grades. Use whichever feel useful.</p>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">2</span><h3>Determinants worth targeting</h3></div>
+    <p class="construct">For each behavior or environmental condition: what individual-level and environmental-level factors cause or maintain it?</p>
+    <ul class="questions">
+      <li>At the individual level — what knowledge, beliefs, skills, self-efficacy, or outcome expectations feed the behavior?</li>
+      <li>At the environmental levels — interpersonal, organizational, community, policy — what conditions feed it?</li>
+      <li>Of all the determinants you just listed, which are <em>changeable</em>? Which carry the most <em>weight</em>? How do you know — or what would you need to find out?</li>
+    </ul>
+    <div class="response">
+      <label for="bp2">Determinants you'll target — and why those</label>
+      <textarea id="bp2" class="tall" data-key="bp2" aria-label="Determinants"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bp2-1" data-check="bp2-1"><label for="chk-bp2-1">I listed both individual-level and environmental-level determinants.</label></li>
+        <li><input type="checkbox" id="chk-bp2-2" data-check="bp2-2"><label for="chk-bp2-2">I made some judgment about which determinants are changeable.</label></li>
+        <li><input type="checkbox" id="chk-bp2-3" data-check="bp2-3"><label for="chk-bp2-3">I made some judgment about which carry the most weight — and why I think so.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">3</span><h3>Change objectives</h3></div>
+    <p class="construct">For each determinant you'll target, what specifically must the person — or environmental agent — do, learn, or believe differently?</p>
+    <ul class="questions">
+      <li>Write the change as a verb. "Patients will…" "Clinic schedulers will…" "Department chairs will…"</li>
+      <li>Is each change objective specific enough that you could tell whether it happened?</li>
+    </ul>
+    <div class="response">
+      <label for="bp3">Change objectives, by actor</label>
+      <textarea id="bp3" class="tall" data-key="bp3" aria-label="Change objectives"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bp3-1" data-check="bp3-1"><label for="chk-bp3-1">I wrote each objective as a verb tied to a specific actor.</label></li>
+        <li><input type="checkbox" id="chk-bp3-2" data-check="bp3-2"><label for="chk-bp3-2">Each objective is concrete enough that I could tell whether it happened.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">4</span><h3>Theory-based methods and practical applications</h3></div>
+    <p class="construct">A method is the theoretical mechanism (e.g., modeling, persuasion, environmental restructuring). A practical application is what the participant actually encounters.</p>
+    <ul class="questions">
+      <li>For each change objective, what behavior-change theory or method has evidence of working on that kind of determinant?</li>
+      <li>What are the parameters of effectiveness for that method — the conditions under which it actually works — and how will you respect them in your application?</li>
+      <li>What is the concrete thing the participant will see, hear, or do? A workshop? A coaching call? A redesigned form?</li>
+    </ul>
+    <div class="response">
+      <label for="bp4">Methods → practical applications</label>
+      <textarea id="bp4" class="tall" data-key="bp4" aria-label="Methods and applications"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bp4-1" data-check="bp4-1"><label for="chk-bp4-1">I named a theory or method, not just a tactic.</label></li>
+        <li><input type="checkbox" id="chk-bp4-2" data-check="bp4-2"><label for="chk-bp4-2">I noted the parameters of effectiveness for the method I chose.</label></li>
+        <li><input type="checkbox" id="chk-bp4-3" data-check="bp4-3"><label for="chk-bp4-3">I have a concrete picture of what the participant will actually encounter.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">5</span><h3>Adoption and implementation</h3></div>
+    <p class="construct">A well-designed intervention that no one adopts is not a change.</p>
+    <ul class="questions">
+      <li>Who has to <em>adopt</em> this — not just consent, but actually use it? What would they need to see, hear, or experience to choose adoption?</li>
+      <li>Who has to <em>implement</em> it day to day? What's in it for them, and what's it going to cost them?</li>
+      <li>What channels reach each of those groups?</li>
+    </ul>
+    <div class="response">
+      <label for="bp5">Adoption and implementation plan</label>
+      <textarea id="bp5" class="tall" data-key="bp5" aria-label="Adoption and implementation"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bp5-1" data-check="bp5-1"><label for="chk-bp5-1">I distinguished who adopts from who implements.</label></li>
+        <li><input type="checkbox" id="chk-bp5-2" data-check="bp5-2"><label for="chk-bp5-2">I considered what's in it for the implementers — and what it costs them.</label></li>
+        <li><input type="checkbox" id="chk-bp5-3" data-check="bp5-3"><label for="chk-bp5-3">I named at least one channel that actually reaches each group.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">6</span><h3>Evaluation</h3></div>
+    <p class="construct">Process, effect, behavioral, and health outcomes — each measures something different.</p>
+    <ul class="questions">
+      <li>What outcomes will you measure at each level — and against what comparison?</li>
+      <li>On what timeline would each outcome be expected to show, given the theory you chose?</li>
+      <li>Which evaluation result would change your mind about whether to scale, shrink, or abandon the project?</li>
+    </ul>
+    <div class="response">
+      <label for="bp6">Evaluation plan</label>
+      <textarea id="bp6" class="tall" data-key="bp6" aria-label="Evaluation plan"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bp6-1" data-check="bp6-1"><label for="chk-bp6-1">I named outcomes at more than one layer (not only "did the program happen").</label></li>
+        <li><input type="checkbox" id="chk-bp6-2" data-check="bp6-2"><label for="chk-bp6-2">I named a comparison against which to evaluate.</label></li>
+        <li><input type="checkbox" id="chk-bp6-3" data-check="bp6-3"><label for="chk-bp6-3">I'm clear on which result would change my mind about scaling, shrinking, or stopping.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">7</span><h3>What this lens is asking of you</h3></div>
+    <p class="construct">A reflection, not a deliverable.</p>
+    <ul class="questions">
+      <li>Where did this lens make your project sharper?</li>
+      <li>Where did it ask for evidence or specificity you don't yet have?</li>
+      <li>What's the next thing you'd need to read, ask, or pilot to fill the gap?</li>
+    </ul>
+    <div class="response">
+      <label for="bp7">Where the Blueprint sharpened — and where it strained</label>
+      <textarea id="bp7" data-key="bp7" aria-label="Blueprint reflection"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bp7-1" data-check="bp7-1"><label for="chk-bp7-1">I named at least one place this lens sharpened my thinking.</label></li>
+        <li><input type="checkbox" id="chk-bp7-2" data-check="bp7-2"><label for="chk-bp7-2">I named at least one place it strained.</label></li>
+        <li><input type="checkbox" id="chk-bp7-3" data-check="bp7-3"><label for="chk-bp7-3">I have a concrete next step — something I'd read, ask, or pilot.</label></li>
+      </ul>
+    </div>
+  </article>
+
+</section>
+
+<!-- ============== BUILD PANEL ============== -->
+<section class="panel" id="panel-build" role="tabpanel" aria-labelledby="tab-build" aria-hidden="true" data-lens-key="build" data-prompt-count="7">
+
+  <div class="panel-intro">
+    <h2>The Build</h2>
+    <p class="citation">Lens: Institutional intrapreneurship (Heinze &amp; Weber, 2016)</p>
+    <p>This lens assumes that change is brokered. You work from where you are, with what's loose, through people who'll trade with you. It's opportunistic, incremental, and relational — and it pays close attention to whether the institutional ground beneath you is firm enough to hold the next step. Hold your project up to this lens and answer in your own words.</p>
+  </div>
+
+  <div class="panel-meta">
+    <span class="time">Plan ≈ 20–35 minutes. Come back anytime — your work saves as you go.</span>
+    <span class="progress">
+      <span class="progress-count"><span class="filled-count">0</span> / 7</span>
+      <span class="progress-dots" aria-hidden="true"></span>
+    </span>
+  </div>
+
+  <div class="evidence-echo-row">
+    <div class="project-echo" aria-live="polite">
+      <strong>You're working on</strong>
+      <span class="echo-text"><span class="empty">— enter your project above to see it here —</span></span>
+    </div>
+    <div class="evidence-echo" aria-live="polite">
+      <strong>Your evidence base</strong>
+      <span class="evidence-echo-text"><span class="empty">— name your evidence stage above to see it here —</span></span>
+    </div>
+  </div>
+
+  <details class="primer">
+    <summary>
+      <span class="primer-titlewrap">
+        <span class="primer-eyebrow">Reference</span>
+        <span class="primer-title">How this framework works</span>
+      </span>
+    </summary>
+    <div class="primer-body">
+      <p>Heinze and Weber studied how change agents inside institutions introduce practices the dominant logic doesn't favor — without being expelled and without converting everyone first. Their case studies of integrative-medicine programs surface the pieces that distinguish projects that took root from projects that didn't. The prompts below ask after each of those pieces. Use this reference if a construct feels unfamiliar.</p>
+
+      <dl>
+        <dt>Free space</dt>
+        <dd>A pocket of organizational slack where you can try something without first asking permission of the people most likely to refuse. Without free space, every step depends on convincing a gatekeeper. With it, you can produce evidence before you have to argue.</dd>
+
+        <dt>Field-level status</dt>
+        <dd>The standing of your idea in the broader professional field — not at your institution, but across the discipline. Higher status means colleagues listen; lower status means every conversation starts from defense. Status shifts come from accreditation language, payer policy, professional society statements, funding-agency activity, and public demand.</dd>
+
+        <dt>Jurisdiction over resources</dt>
+        <dd>For every resource your project needs — budget, time, space, curriculum slots, EHR fields, names on letterhead — someone has the authority to grant it. Some of those someones are you; most are not. Knowing which is which determines what you can act on alone and what requires a negotiation.</dd>
+
+        <dt>Trading zones</dt>
+        <dd>Places where you and stakeholders from a different logic exchange value without either side having to convert. A co-authored protocol, a joint pilot, a shared dataset, a committee — each anchors a trade in something concrete enough that the exchange survives past the meeting.</dd>
+
+        <dt>Pipeline of allies</dt>
+        <dd>Allies come in layers. <em>Early adopters</em> already half-believe and will say yes first. <em>Bridging figures</em> have credibility in both your world and the dominant one — they translate. <em>Silent beneficiaries</em> would gain if you succeeded but haven't spoken up yet; activating them is its own project.</dd>
+
+        <dt>First small experiment</dt>
+        <dd>The smallest visible action that produces a result someone can see. Its job isn't to prove the whole concept — it's to generate evidence, recruit the next ally, and keep the failure cost low enough that you can adjust.</dd>
+
+        <dt>Reinterpreting institutional logics (Reay et al., 2017)</dt>
+        <dd>When direct persuasion fails, the same project can sometimes be retold in the listener's own language and values — and assented to without anyone feeling they've abandoned their identity. The art is reframing honestly: serving their logic without becoming something you're not.</dd>
+      </dl>
+
+      <p class="ref-note">For depth: Heinze, K. L., &amp; Weber, K. (2016). Toward organizational pluralism: Institutional intrapreneurship in integrative medicine. <em>Organization Science</em>, 27(1), 157–172. Optional companion for the reframing construct: Reay, T., et al. (2017). Getting leopards to change their spots. <em>Academy of Management Journal</em>, 60(3), 1043–1070.</p>
+    </div>
+  </details>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">1</span><h3>Free space</h3></div>
+    <p class="construct">A pocket of organizational slack where you can experiment without immediate scrutiny from those most likely to resist.</p>
+    <ul class="questions">
+      <li>Where inside your institution could you actually try a small version of this — without requiring permission from a stakeholder who would say no?</li>
+      <li>What slack is available to you — discretionary time, a sympathetic department, a teaching clinic, a budget line, square footage, an unused protocol?</li>
+      <li>Whose attention does that space currently <em>not</em> attract — and is that protective or fragile?</li>
+    </ul>
+    <div class="response">
+      <label for="bd1">Your free space</label>
+      <textarea id="bd1" class="tall" data-key="bd1" aria-label="Free space"></textarea>
+    </div>
+    <div class="stems">
+      <button type="button" class="stems-toggle" data-stems="bd1" aria-expanded="false">Show sentence stems (optional)</button>
+      <div class="stems-list" id="stems-bd1">
+        <p>Tap any starter to add it to your answer. Edit freely.</p>
+        <button type="button" data-stem-target="bd1">A part of my institution where I could experiment without immediate scrutiny is…</button>
+        <button type="button" data-stem-target="bd1">A discretionary resource I might be able to use is…</button>
+        <button type="button" data-stem-target="bd1">The reason this space isn't currently being watched is…</button>
+        <button type="button" data-stem-target="bd1">What makes this space protective — or fragile — is…</button>
+      </div>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bd1-1" data-check="bd1-1"><label for="chk-bd1-1">I named a specific pocket of slack, not "we have flexibility."</label></li>
+        <li><input type="checkbox" id="chk-bd1-2" data-check="bd1-2"><label for="chk-bd1-2">I asked whether the space is protective or fragile.</label></li>
+      </ul>
+      <p class="self-check-note">These are mirrors, not grades. Use whichever feel useful.</p>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">2</span><h3>Field-level status</h3></div>
+    <p class="construct">The standing of integrative health in your professional field <em>right now</em> — and the direction it's moving.</p>
+    <ul class="questions">
+      <li>How would a skeptical colleague describe integrative health's standing in your field today? Contested? Peripheral? Emerging? Accepted?</li>
+      <li>What recent shifts — accreditation language, payer policy, society statements, NIH center activity, public demand — raise or lower that standing?</li>
+      <li>Which of those shifts can you point to in a conversation tomorrow — by name, by source?</li>
+    </ul>
+    <div class="response">
+      <label for="bd2">Field status — and the evidence you'd cite</label>
+      <textarea id="bd2" class="tall" data-key="bd2" aria-label="Field status"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bd2-1" data-check="bd2-1"><label for="chk-bd2-1">I have a specific source I'd cite for field status, not just impression.</label></li>
+        <li><input type="checkbox" id="chk-bd2-2" data-check="bd2-2"><label for="chk-bd2-2">I distinguished status today from the direction it's moving.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">3</span><h3>Jurisdiction over resources</h3></div>
+    <p class="construct">For each resource your project needs, someone decides. Sometimes that someone is you.</p>
+    <ul class="questions">
+      <li>List the resources your project needs — budget lines, faculty time, clinical hours, curriculum slots, EHR fields, space, names on a letterhead.</li>
+      <li>For each one: who controls it? Where do you already have jurisdiction? Where will you have to negotiate or borrow it?</li>
+      <li>Which resource is the bottleneck — the one that, if you couldn't get it, would stop everything?</li>
+    </ul>
+    <div class="response">
+      <label for="bd3">Resources, controllers, and the bottleneck</label>
+      <textarea id="bd3" class="tall" data-key="bd3" aria-label="Jurisdiction over resources"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bd3-1" data-check="bd3-1"><label for="chk-bd3-1">I listed specific resources, not categories.</label></li>
+        <li><input type="checkbox" id="chk-bd3-2" data-check="bd3-2"><label for="chk-bd3-2">I named who controls each one.</label></li>
+        <li><input type="checkbox" id="chk-bd3-3" data-check="bd3-3"><label for="chk-bd3-3">I identified the bottleneck resource.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">4</span><h3>Trading zones</h3></div>
+    <p class="construct">Places where people from different logics — biomedicine, finance, administration, integrative health — exchange resources or legitimacy without either side having to convert.</p>
+    <ul class="questions">
+      <li>What would the other side <em>get</em> from trading with you? A metric they need? A grant they can't write alone? A patient experience score?</li>
+      <li>Where could the exchange take place — a committee, a co-authored protocol, a joint pilot, a shared dataset, a single shared meeting?</li>
+      <li>What concrete artifact would anchor the trade so it doesn't dissolve when the meeting ends?</li>
+    </ul>
+    <div class="response">
+      <label for="bd4">Possible trading zones and what each side trades</label>
+      <textarea id="bd4" class="tall" data-key="bd4" aria-label="Trading zones"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bd4-1" data-check="bd4-1"><label for="chk-bd4-1">I named what the other side gets — not just what I get.</label></li>
+        <li><input type="checkbox" id="chk-bd4-2" data-check="bd4-2"><label for="chk-bd4-2">I named a concrete artifact (protocol, dataset, pilot) that anchors the trade past the meeting.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">5</span><h3>Pipeline of allies</h3></div>
+    <p class="construct">Early adopters, bridging figures with credibility in both worlds, and silent beneficiaries.</p>
+    <ul class="questions">
+      <li>Who are your <em>early adopters</em> — the people who already half-believe and would say yes first?</li>
+      <li>Who are your <em>bridging figures</em> — people credible to both the integrative-health world and the dominant one?</li>
+      <li>Who would <em>benefit</em> if this succeeded, even if they're silent now? What would activate them?</li>
+      <li>Who is missing from your pipeline — and what kind of person is missing, not just which name?</li>
+    </ul>
+    <div class="response">
+      <label for="bd5">Your pipeline, by role</label>
+      <textarea id="bd5" class="tall" data-key="bd5" aria-label="Pipeline of allies"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bd5-1" data-check="bd5-1"><label for="chk-bd5-1">My pipeline includes early adopters, bridging figures, and silent beneficiaries.</label></li>
+        <li><input type="checkbox" id="chk-bd5-2" data-check="bd5-2"><label for="chk-bd5-2">I named what's missing — what kind of person, not just whose name.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">6</span><h3>The first small experiment</h3></div>
+    <p class="construct">The smallest visible thing you can do in the next 30 days that produces a result you can show someone.</p>
+    <ul class="questions">
+      <li>What is that smallest visible action? Whose permission do you actually need, and whose don't you?</li>
+      <li>What result would it produce — and who needs to see that result for the next step to open?</li>
+      <li>What would you do if it worked? What would you do if it didn't, and how would you tell the difference?</li>
+    </ul>
+    <div class="response">
+      <label for="bd6">Your first small experiment</label>
+      <textarea id="bd6" class="tall" data-key="bd6" aria-label="First small experiment"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bd6-1" data-check="bd6-1"><label for="chk-bd6-1">My experiment is doable in 30 days.</label></li>
+        <li><input type="checkbox" id="chk-bd6-2" data-check="bd6-2"><label for="chk-bd6-2">I named what success and failure would look like before running it.</label></li>
+        <li><input type="checkbox" id="chk-bd6-3" data-check="bd6-3"><label for="chk-bd6-3">I know whose permission I actually need — and whose I don't.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <details class="optional">
+    <summary>Optional: Reinterpreting the institutional logic (Reay et al., 2017)</summary>
+    <div class="inner">
+      <p class="construct" style="margin-left:0">When direct persuasion fails, sometimes you can shift buy-in by retelling the same project in the listener's own language and values.</p>
+      <ul class="questions" style="margin-left:0">
+        <li>Whose buy-in are you actually trying to shift? What story do they currently tell about integrative health, in their own words?</li>
+        <li>What is their dominant logic — efficiency, safety, evidence, patient experience, professional autonomy, fiscal stewardship? Where does your project already serve that logic without losing what it is?</li>
+        <li>What reframing would let them say yes without feeling they've abandoned their identity?</li>
+        <li>Where is the line between honest reframing and selling something you didn't bring?</li>
+      </ul>
+      <div class="response" style="margin-left:0">
+        <label for="bd-reframe">Reframing notes</label>
+        <textarea id="bd-reframe" class="tall" data-key="bd-reframe" aria-label="Reframing institutional logics"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">7</span><h3>What this lens is asking of you</h3></div>
+    <p class="construct">A reflection, not a deliverable.</p>
+    <ul class="questions">
+      <li>Where did this lens make your project sharper?</li>
+      <li>Where did it expose a relationship, a resource, or a piece of institutional ground you've been ignoring?</li>
+      <li>What's the smallest thing you'd do this week if you took this lens seriously?</li>
+    </ul>
+    <div class="response">
+      <label for="bd7">Where the Build sharpened — and where it strained</label>
+      <textarea id="bd7" data-key="bd7" aria-label="Build reflection"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-bd7-1" data-check="bd7-1"><label for="chk-bd7-1">I named at least one place this lens sharpened my thinking.</label></li>
+        <li><input type="checkbox" id="chk-bd7-2" data-check="bd7-2"><label for="chk-bd7-2">I named at least one place it strained.</label></li>
+        <li><input type="checkbox" id="chk-bd7-3" data-check="bd7-3"><label for="chk-bd7-3">I named the smallest thing I'd do this week if I took this lens seriously.</label></li>
+      </ul>
+    </div>
+  </article>
+
+</section>
+
+<!-- ============== DIAGNOSE PANEL ============== -->
+<section class="panel" id="panel-diagnose" role="tabpanel" aria-labelledby="tab-diagnose" aria-hidden="true" data-lens-key="diagnose" data-prompt-count="6">
+
+  <div class="panel-intro">
+    <h2>Why it Stalled</h2>
+    <p class="citation">Diagnostic beat — drawing on Heinze &amp; Weber's nursing-faculty case</p>
+    <p><strong>Use this on a project that ran out of fuel</strong> — one of yours from a past role, a colleague's, or a case from the literature. It's not meant for the project you're currently launching. It's a way to learn from a fragile or failed effort before your own meets the same pattern. The questions are unflattering on purpose. They're also private.</p>
+  </div>
+
+  <div class="panel-meta">
+    <span class="time">Plan ≈ 15–25 minutes. Best after you've spent some time in the other two lenses.</span>
+    <span class="progress">
+      <span class="progress-count"><span class="filled-count">0</span> / 6</span>
+      <span class="progress-dots" aria-hidden="true"></span>
+    </span>
+  </div>
+
+  <details class="primer">
+    <summary>
+      <span class="primer-titlewrap">
+        <span class="primer-eyebrow">Reference</span>
+        <span class="primer-title">The case behind this diagnostic</span>
+      </span>
+    </summary>
+    <div class="primer-body">
+      <p>Heinze and Weber describe an integrative-health nursing program that launched with substantial grant funding but had not built two of the things that carry a project past its first funder: <em>free space</em> independent of the grant, and <em>field-level status</em> that would have made integrative health a recognized line of work in nursing. When the funding cycle ended, there was no home left for the work and no allies whose own interests required them to defend it. The program dissolved.</p>
+
+      <p>The case is useful not as a story of failure but as a check on a familiar pattern: a project that looks robust because it is well-resourced but is in fact resting on a single thread. The prompts below pull that thread on a project of your choosing — yours, a colleague's, or a historical case — to surface where the institutional ground was firm and where it wasn't.</p>
+
+      <p class="ref-note">Source: Heinze, K. L., &amp; Weber, K. (2016). Toward organizational pluralism: Institutional intrapreneurship in integrative medicine. <em>Organization Science</em>, 27(1), 157–172.</p>
+    </div>
+  </details>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">1</span><h3>The project being diagnosed</h3></div>
+    <ul class="questions">
+      <li>Whose project is this, what was it trying to do, and what state is it in now?</li>
+    </ul>
+    <div class="response">
+      <label for="dx0">The project</label>
+      <textarea id="dx0" data-key="dx0" aria-label="Project being diagnosed"></textarea>
+    </div>
+    <div class="stems">
+      <button type="button" class="stems-toggle" data-stems="dx0" aria-expanded="false">Show sentence stems (optional)</button>
+      <div class="stems-list" id="stems-dx0">
+        <p>Tap any starter to add it to your answer. Edit freely.</p>
+        <button type="button" data-stem-target="dx0">The project I'm diagnosing is…</button>
+        <button type="button" data-stem-target="dx0">It tried to…</button>
+        <button type="button" data-stem-target="dx0">Its current state is…</button>
+      </div>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-dx0-1" data-check="dx0-1"><label for="chk-dx0-1">I chose a project specific enough to interrogate — not just an idea.</label></li>
+      </ul>
+      <p class="self-check-note">These are mirrors, not grades. Use whichever feel useful.</p>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">2</span><h3>Single-thread dependency</h3></div>
+    <ul class="questions">
+      <li>Was the project's momentum tied to a single thread — one grant, one champion, one leadership term, one accreditation cycle?</li>
+      <li>What was supposed to happen when that thread ended? Was the plan written down, or only hoped for?</li>
+    </ul>
+    <div class="response">
+      <label for="dx1">The thread it hung on</label>
+      <textarea id="dx1" data-key="dx1" aria-label="Single-thread dependency"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-dx1-1" data-check="dx1-1"><label for="chk-dx1-1">I named the specific thread the project hung on.</label></li>
+        <li><input type="checkbox" id="chk-dx1-2" data-check="dx1-2"><label for="chk-dx1-2">I named what was supposed to happen when that thread ended.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">3</span><h3>Free space, independent of the resource</h3></div>
+    <ul class="questions">
+      <li>What free space existed in the host institution that did <em>not</em> depend on the grant or champion to exist?</li>
+      <li>Was there a home for the work after the funded activity ended?</li>
+    </ul>
+    <div class="response">
+      <label for="dx2">Free space — or its absence</label>
+      <textarea id="dx2" data-key="dx2" aria-label="Free space independent of resource"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-dx2-1" data-check="dx2-1"><label for="chk-dx2-1">I considered whether any home existed for the work after the funded activity ended.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">4</span><h3>Field-level status, then and now</h3></div>
+    <ul class="questions">
+      <li>What was integrative health's standing in the field at the time the project launched? What is it now?</li>
+      <li>What status shifts <em>could</em> have protected the project? Did anyone in the project work to bring those about?</li>
+    </ul>
+    <div class="response">
+      <label for="dx3">Field status, before and after</label>
+      <textarea id="dx3" data-key="dx3" aria-label="Field-level status"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-dx3-1" data-check="dx3-1"><label for="chk-dx3-1">I distinguished status at the time from status now.</label></li>
+        <li><input type="checkbox" id="chk-dx3-2" data-check="dx3-2"><label for="chk-dx3-2">I asked whether anyone in the project worked to shift field status — and whether that mattered.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">5</span><h3>Trading zones and the pipeline</h3></div>
+    <ul class="questions">
+      <li>What trading zones were active while the project ran? Did any of them survive the resource ending?</li>
+      <li>Was there a pipeline of allies who had something at stake — or were the supporters borrowed from the funded activity itself, and gone when it was?</li>
+    </ul>
+    <div class="response">
+      <label for="dx4">Trading zones and allies — survival check</label>
+      <textarea id="dx4" data-key="dx4" aria-label="Trading zones and pipeline"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-dx4-1" data-check="dx4-1"><label for="chk-dx4-1">I asked whether the supporters were borrowed from the funded activity itself.</label></li>
+        <li><input type="checkbox" id="chk-dx4-2" data-check="dx4-2"><label for="chk-dx4-2">I considered which trading zones, if any, survived the resource ending.</label></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="prompt">
+    <div class="prompt-head"><span class="prompt-num">6</span><h3>The honest diagnosis</h3></div>
+    <ul class="questions">
+      <li>In your own words: what stalled it? Money, ground, status, allies, framing, or something the two lenses on this scaffold don't name?</li>
+      <li>If you were restarting tomorrow with no new money, what would you do <em>first</em>?</li>
+      <li>What does this case teach you about the project you're currently building?</li>
+    </ul>
+    <div class="response">
+      <label for="dx5">Your diagnosis — and what it teaches</label>
+      <textarea id="dx5" class="tall" data-key="dx5" aria-label="Honest diagnosis"></textarea>
+    </div>
+    <div class="self-check">
+      <p class="self-check-title">Your check-in</p>
+      <ul class="self-check-items">
+        <li><input type="checkbox" id="chk-dx5-1" data-check="dx5-1"><label for="chk-dx5-1">I named the cause in my own words, not just borrowed framework language.</label></li>
+        <li><input type="checkbox" id="chk-dx5-2" data-check="dx5-2"><label for="chk-dx5-2">I described what I'd do first if restarting without new money.</label></li>
+        <li><input type="checkbox" id="chk-dx5-3" data-check="dx5-3"><label for="chk-dx5-3">I extracted a lesson for the project I'm currently building.</label></li>
+      </ul>
+    </div>
+  </article>
+
+</section>
+
+<div class="toolbar">
+  <div class="left">
+    <button class="tool" id="btn-copy" type="button">Copy my answers</button>
+    <button class="tool" id="btn-export" type="button">Download as text file</button>
+    <button class="tool" id="btn-print" type="button">Print or save as PDF</button>
+  </div>
+  <div class="right">
+    <span class="save-band">
+      <span class="save-dot" aria-hidden="true"></span>
+      <span class="save-status" id="save-status" aria-live="polite">Saved on this device — use the buttons to carry it elsewhere.</span>
+    </span>
+    <button class="tool warn" id="btn-clear" type="button">Clear everything</button>
+  </div>
+</div>
+
+</main>
+
+<footer class="refs">
+  <h3>Sources behind the prompts</h3>
+  <p>Fernandez, M. E., Ten Hoor, G. A., van Lieshout, S., Rodriguez, S. A., Beidas, R. S., Parcel, G., Ruiter, R. A. C., Markham, C. M., &amp; Kok, G. (2019). Implementation Mapping: Using Intervention Mapping to develop implementation strategies. <em>Frontiers in Public Health</em>, 7, 209.</p>
+  <p>Heinze, K. L., &amp; Weber, K. (2016). Toward organizational pluralism: Institutional intrapreneurship in integrative medicine. <em>Organization Science</em>, 27(1), 157–172.</p>
+  <p>Reay, T., Goodrick, E., Waldorff, S. B., &amp; Casebeer, A. (2017). Getting leopards to change their spots: Co-creating a new professional role identity. <em>Academy of Management Journal</em>, 60(3), 1043–1070.</p>
+  <p style="margin-top:14px;color:var(--ink-mute);font-size:12.5px;">This scaffold asks the questions; the thinking is yours.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var STORAGE_KEY = 'twwtcas-v1';
+  var PREFS_KEY   = 'twwtcas-prefs-v1';
+  var DEFAULT_SAVE = 'Saved on this device — use the buttons to carry it elsewhere.';
+  var saveStatus = document.getElementById('save-status');
+  var saveTimer = null;
+
+  function loadState() {
+    try { var raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : {}; }
+    catch (e) { return {}; }
+  }
+  function saveState(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      saveStatus.textContent = 'Saved a moment ago.';
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function () { saveStatus.textContent = DEFAULT_SAVE; }, 1600);
+    } catch (e) {
+      saveStatus.textContent = 'Could not save (storage blocked) — please use Copy or Download.';
+    }
+  }
+  function loadPrefs() {
+    try { var raw = localStorage.getItem(PREFS_KEY); return raw ? JSON.parse(raw) : {}; }
+    catch (e) { return {}; }
+  }
+  function savePrefs(p) {
+    try { localStorage.setItem(PREFS_KEY, JSON.stringify(p)); } catch (e) {}
+  }
+
+  var state = loadState();
+  var fields = document.querySelectorAll('[data-key]');
+  fields.forEach(function (el) {
+    var key = el.getAttribute('data-key');
+    if (state[key] != null) el.value = state[key];
+  });
+  var checks = document.querySelectorAll('[data-check]');
+  checks.forEach(function (el) {
+    var key = 'chk-' + el.getAttribute('data-check');
+    if (state[key]) el.checked = true;
+  });
+
+  var projectInput = document.getElementById('project-idea');
+  var echoes = document.querySelectorAll('.echo-text');
+  function refreshEcho() {
+    var text = projectInput.value.trim();
+    echoes.forEach(function (e) {
+      if (!text) {
+        e.innerHTML = '<span class="empty">— enter your project above to see it here —</span>';
+      } else {
+        var safe = document.createElement('span');
+        safe.textContent = text;
+        e.innerHTML = '';
+        e.appendChild(safe);
+      }
+    });
+  }
+  refreshEcho();
+
+  // --- Evidence stage (radio group) ---
+  var STAGE_LABELS = {
+    'seeking':   'Still seeking',
+    'appraised': 'Appraisal in hand',
+    'both':      'Some of both'
+  };
+  var evRadios = document.querySelectorAll('[data-radio-group="ev-stage"]');
+  if (state['ev-stage']) {
+    evRadios.forEach(function (r) { if (r.value === state['ev-stage']) r.checked = true; });
+  }
+  var evNotesInput = document.getElementById('ev-notes');
+  var evEchoes = document.querySelectorAll('.evidence-echo-text');
+  function refreshEvidenceEcho() {
+    var stage = state['ev-stage'] || (function () {
+      var sel = document.querySelector('[data-radio-group="ev-stage"]:checked');
+      return sel ? sel.value : '';
+    })();
+    var notes = evNotesInput ? evNotesInput.value.trim() : '';
+    evEchoes.forEach(function (e) {
+      e.innerHTML = '';
+      if (!stage && !notes) {
+        e.innerHTML = '<span class="empty">— name your evidence stage above to see it here —</span>';
+        return;
+      }
+      if (stage) {
+        var pill = document.createElement('span');
+        pill.className = 'stage-pill';
+        pill.textContent = STAGE_LABELS[stage] || stage;
+        e.appendChild(pill);
+      }
+      if (notes) {
+        var safe = document.createElement('span');
+        safe.textContent = notes;
+        e.appendChild(safe);
+      } else if (stage) {
+        var ph = document.createElement('span');
+        ph.className = 'empty';
+        ph.textContent = '(add a few lines of evidence notes above to see them here)';
+        e.appendChild(ph);
+      }
+    });
+  }
+  evRadios.forEach(function (r) {
+    r.addEventListener('change', function () {
+      if (r.checked) {
+        var current = loadState();
+        current['ev-stage'] = r.value;
+        state['ev-stage'] = r.value;
+        saveState(current);
+        refreshEvidenceEcho();
+      }
+    });
+  });
+  if (evNotesInput) {
+    evNotesInput.addEventListener('input', function () { refreshEvidenceEcho(); });
+  }
+  refreshEvidenceEcho();
+
+  // --- Progress dots per lens ---
+  var panelEls = document.querySelectorAll('.panel[data-lens-key]');
+  panelEls.forEach(function (panel) {
+    var count = parseInt(panel.getAttribute('data-prompt-count'), 10);
+    var holder = panel.querySelector('.progress-dots');
+    if (!holder) return;
+    for (var i = 0; i < count; i++) {
+      var dot = document.createElement('span');
+      dot.className = 'progress-dot';
+      holder.appendChild(dot);
+    }
+  });
+  function lensKeyMap(lens) {
+    if (lens === 'blueprint') return ['bp1','bp2','bp3','bp4','bp5','bp6','bp7'];
+    if (lens === 'build')     return ['bd1','bd2','bd3','bd4','bd5','bd6','bd7'];
+    if (lens === 'diagnose')  return ['dx0','dx1','dx2','dx3','dx4','dx5'];
+    return [];
+  }
+  function refreshProgress() {
+    panelEls.forEach(function (panel) {
+      var lens = panel.getAttribute('data-lens-key');
+      var keys = lensKeyMap(lens);
+      var dots = panel.querySelectorAll('.progress-dot');
+      var filledCount = 0;
+      keys.forEach(function (k, i) {
+        var ta = document.getElementById(k);
+        var filled = ta && ta.value.trim().length > 20;
+        if (dots[i]) dots[i].classList.toggle('filled', !!filled);
+        if (filled) filledCount++;
+      });
+      var countEl = panel.querySelector('.filled-count');
+      if (countEl) countEl.textContent = filledCount;
+    });
+  }
+  refreshProgress();
+
+  fields.forEach(function (el) {
+    el.addEventListener('input', function () {
+      var current = loadState();
+      current[el.getAttribute('data-key')] = el.value;
+      saveState(current);
+      if (el === projectInput) refreshEcho();
+      refreshProgress();
+    });
+  });
+
+  // --- Self-check checkbox persistence + visual state ---
+  checks.forEach(function (cb) {
+    var li = cb.closest('li');
+    if (cb.checked && li) li.classList.add('checked');
+    cb.addEventListener('change', function () {
+      var current = loadState();
+      current['chk-' + cb.getAttribute('data-check')] = cb.checked;
+      saveState(current);
+      if (li) li.classList.toggle('checked', cb.checked);
+    });
+  });
+
+  // --- Sentence stem toggles + insert ---
+  document.querySelectorAll('.stems-toggle').forEach(function (btn) {
+    var listId = 'stems-' + btn.getAttribute('data-stems');
+    var list = document.getElementById(listId);
+    btn.addEventListener('click', function () {
+      var open = list.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.textContent = open ? 'Hide sentence stems' : 'Show sentence stems (optional)';
+    });
+  });
+  document.querySelectorAll('[data-stem-target]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var targetId = btn.getAttribute('data-stem-target');
+      var ta = document.getElementById(targetId);
+      if (!ta) return;
+      var stem = btn.textContent.trim();
+      var existing = ta.value.trim();
+      ta.value = existing ? existing + '\n\n' + stem + ' ' : stem + ' ';
+      ta.focus();
+      ta.setSelectionRange(ta.value.length, ta.value.length);
+      ta.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+
+  // --- Primer default-open on first visit per lens ---
+  var prefs = loadPrefs();
+  prefs.primerCollapsed = prefs.primerCollapsed || {};
+  document.querySelectorAll('.primer').forEach(function (pr) {
+    var panel = pr.closest('.panel');
+    if (!panel) return;
+    var lens = panel.getAttribute('data-lens-key');
+    if (!prefs.primerCollapsed.hasOwnProperty(lens)) {
+      pr.open = true;
+    } else {
+      pr.open = !prefs.primerCollapsed[lens];
+    }
+    pr.addEventListener('toggle', function () {
+      var p = loadPrefs();
+      p.primerCollapsed = p.primerCollapsed || {};
+      p.primerCollapsed[lens] = !pr.open;
+      savePrefs(p);
+    });
+  });
+
+  // --- Tabs ---
+  var tabs = document.querySelectorAll('.lens-btn');
+  var panels = {
+    blueprint: document.getElementById('panel-blueprint'),
+    build:     document.getElementById('panel-build'),
+    diagnose:  document.getElementById('panel-diagnose')
+  };
+  function activate(name, focusTab) {
+    tabs.forEach(function (t) {
+      var on = t.getAttribute('data-lens') === name;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.setAttribute('tabindex', on ? '0' : '-1');
+      if (on && focusTab) t.focus();
+    });
+    Object.keys(panels).forEach(function (k) {
+      panels[k].setAttribute('aria-hidden', k === name ? 'false' : 'true');
+    });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { activate(t.getAttribute('data-lens'), false); });
+    t.addEventListener('keydown', function (e) {
+      var order = ['blueprint', 'build', 'diagnose'];
+      var idx = order.indexOf(t.getAttribute('data-lens'));
+      if (e.key === 'ArrowRight')      { e.preventDefault(); activate(order[(idx + 1) % order.length], true); }
+      else if (e.key === 'ArrowLeft')  { e.preventDefault(); activate(order[(idx - 1 + order.length) % order.length], true); }
+      else if (e.key === 'Home')       { e.preventDefault(); activate(order[0], true); }
+      else if (e.key === 'End')        { e.preventDefault(); activate(order[order.length - 1], true); }
+    });
+  });
+
+  // --- Build exportable text ---
+  function buildText() {
+    var s = loadState();
+    var sections = [
+      { title: 'TWO WAYS TO CHANGE A SYSTEM — Your responses' },
+      { title: 'ABOUT YOU', keys: [
+        ['ay-years',   'Years in your field'],
+        ['ay-setting', 'Where you work or train'],
+        ['ay-why',     'What drew you to integrative health']
+      ]},
+      { title: 'PROJECT', keys: [['project-idea', 'Your project']] },
+      { title: 'EVIDENCE BASE', keys: [
+        ['ev-stage', 'Evidence stage'],
+        ['ev-notes', 'Evidence you\'re building on, and questions remaining']
+      ]},
+      { title: 'THE BLUEPRINT — Intervention Mapping (Fernandez et al., 2019)', keys: [
+        ['bp1', '1. Problem and logic model'],
+        ['bp2', '2. Determinants worth targeting'],
+        ['bp3', '3. Change objectives'],
+        ['bp4', '4. Methods and practical applications'],
+        ['bp5', '5. Adoption and implementation'],
+        ['bp6', '6. Evaluation'],
+        ['bp7', '7. Reflection']
+      ]},
+      { title: 'THE BUILD — Institutional intrapreneurship (Heinze & Weber, 2016)', keys: [
+        ['bd1', '1. Free space'],
+        ['bd2', '2. Field-level status'],
+        ['bd3', '3. Jurisdiction over resources'],
+        ['bd4', '4. Trading zones'],
+        ['bd5', '5. Pipeline of allies'],
+        ['bd6', '6. First small experiment'],
+        ['bd-reframe', 'Optional: Reframing logics (Reay et al., 2017)'],
+        ['bd7', '7. Reflection']
+      ]},
+      { title: 'WHY IT STALLED — Diagnostic', keys: [
+        ['dx0', '1. The project being diagnosed'],
+        ['dx1', '2. Single-thread dependency'],
+        ['dx2', '3. Free space independent of resource'],
+        ['dx3', '4. Field-level status, then and now'],
+        ['dx4', '5. Trading zones and pipeline'],
+        ['dx5', '6. Honest diagnosis']
+      ]}
+    ];
+    var out = '';
+    sections.forEach(function (sec) {
+      out += '\n' + sec.title + '\n' + new Array(sec.title.length + 1).join('=') + '\n\n';
+      if (sec.keys) {
+        sec.keys.forEach(function (pair) {
+          var raw = s[pair[0]];
+          var val = (raw == null ? '' : String(raw)).trim();
+          if (pair[0] === 'ev-stage' && val) {
+            val = (STAGE_LABELS[val] || val);
+          }
+          out += pair[1] + '\n';
+          out += val ? val + '\n\n' : '(no response)\n\n';
+        });
+      }
+    });
+    out += '\nGenerated ' + new Date().toLocaleString() + '\n';
+    return out;
+  }
+
+  // --- Toolbar ---
+  document.getElementById('btn-print').addEventListener('click', function () {
+    Object.keys(panels).forEach(function (k) { panels[k].setAttribute('aria-hidden', 'false'); });
+    window.print();
+    var current = document.querySelector('.lens-btn[aria-selected="true"]').getAttribute('data-lens');
+    setTimeout(function () { activate(current, false); }, 100);
+  });
+
+  document.getElementById('btn-export').addEventListener('click', function () {
+    var blob = new Blob([buildText()], { type: 'text/plain;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'two-ways-to-change-a-system.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 200);
+    saveStatus.textContent = 'Downloaded.';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () { saveStatus.textContent = DEFAULT_SAVE; }, 1600);
+  });
+
+  document.getElementById('btn-copy').addEventListener('click', function () {
+    var text = buildText();
+    var done = function () {
+      saveStatus.textContent = 'Copied to clipboard.';
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function () { saveStatus.textContent = DEFAULT_SAVE; }, 1800);
+    };
+    var fail = function () {
+      saveStatus.textContent = 'Copy blocked — please use Download instead.';
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () {
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+          document.body.appendChild(ta); ta.select();
+          document.execCommand('copy'); document.body.removeChild(ta);
+          done();
+        } catch (e) { fail(); }
+      });
+    } else {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+        done();
+      } catch (e) { fail(); }
+    }
+  });
+
+  document.getElementById('btn-clear').addEventListener('click', function () {
+    if (!confirm('Clear all of your responses on this device? This cannot be undone.')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    state = {};
+    fields.forEach(function (el) { el.value = ''; });
+    checks.forEach(function (cb) { cb.checked = false; var li = cb.closest('li'); if (li) li.classList.remove('checked'); });
+    evRadios.forEach(function (r) { r.checked = false; });
+    refreshEcho();
+    refreshEvidenceEcho();
+    refreshProgress();
+    saveStatus.textContent = 'Cleared.';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () { saveStatus.textContent = DEFAULT_SAVE; }, 1600);
+  });
+
+})();
+</script>
+</body>
+</html>
